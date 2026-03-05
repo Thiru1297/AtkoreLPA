@@ -1,0 +1,97 @@
+@import '~@fluentui/react/dist/sass/References.scss';
+
+.atkoreLpa {
+  overflow: hidden;
+  padding: 1em;
+  color: "[theme:bodyText, default: #323130]";
+  color: var(--bodyText);
+  &.teams {
+    font-family: $ms-font-family-fallbacks;
+  }
+}
+
+.atkoreLpaAppRoot {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  background: #faf9f8;
+  overflow-x: hidden;
+}
+
+/* Hide default SharePoint chrome so the app's custom top bar is the only header. */
+:global(#SuiteNavWrapper),
+:global(#spSiteHeader),
+:global(#spCommandBar),
+:global([data-automationid='SiteHeader']),
+:global([data-automation-id='SiteHeader']),
+:global([data-automationid='pageHeader']),
+:global([data-automation-id='pageHeader']) {
+  display: none !important;
+}
+
+/* Hide SharePoint social bar / comments footer area under the page canvas. */
+:global(#CommentsWrapper),
+:global([data-automation-id='pageSocialBar']),
+:global([data-automationid='pageSocialBar']),
+:global([data-automation-id='CommentsWrapper']),
+:global([data-automationid='CommentsWrapper']),
+:global([data-automation-id='pageComment']),
+:global([data-automationid='pageComment']),
+:global([data-automation-id='pageFooter']),
+:global([data-automationid='pageFooter']),
+:global([id^='CommentsWrapper']) {
+  display: none !important;
+}
+
+/* Remove modern page canvas constraints and spacing around the web part. */
+:global(.SPCanvas),
+:global(.SPCanvas-canvas),
+:global(.CanvasComponent),
+:global(.CanvasZone),
+:global(.CanvasSection),
+:global(.ControlZone),
+:global(.ControlZone--clean) {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+:global(.SPCanvas-canvas),
+:global(.CanvasZone),
+:global(.CanvasSection),
+:global(.ControlZone),
+:global(.ControlZone--clean) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+:global(.CanvasZoneContainer) {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.welcome {
+  text-align: center;
+}
+
+.welcomeImage {
+  width: 100%;
+  max-width: 420px;
+}
+
+.links {
+  a {
+    text-decoration: none;
+    color: "[theme:link, default:#03787c]";
+    color: var(--link); // note: CSS Custom Properties support is limited to modern browsers only
+
+    &:hover {
+      text-decoration: underline;
+      color: "[theme:linkHovered, default: #014446]";
+      color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
+    }
+  }
+}

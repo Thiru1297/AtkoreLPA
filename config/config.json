@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "atkore-lpa-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/atkoreLpa/AtkoreLpaWebPart.js",
+          "manifest": "./src/webparts/atkoreLpa/AtkoreLpaWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "AtkoreLpaWebPartStrings": "lib/webparts/atkoreLpa/loc/{locale}.js"
+  }
+}

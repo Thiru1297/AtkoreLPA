@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "atkore-lpa-client-side-solution",
+    "id": "d7bee03f-de89-4233-a51c-1287d9ee13c7",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.20.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Atkore.LPA description"
+      },
+      "longDescription": {
+        "default": "Atkore.LPA description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "atkore-lpa Feature",
+        "description": "The feature that activates elements of the atkore-lpa solution.",
+        "id": "57ff80c0-4f4e-4205-9928-3246286610cc",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/atkore-lpa.sppkg"
+  }
+}

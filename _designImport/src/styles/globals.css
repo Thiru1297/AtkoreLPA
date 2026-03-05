@@ -1,0 +1,275 @@
+@import "tailwindcss";
+
+/* Atkore LPA Theme - Fluent UI 2.0 Design System */
+
+@theme {
+  /* Color Tokens - Atkore Branding + Fluent UI 2.0 */
+  --color-primary: #4CAC48;
+  --color-primary-hover: #6AD96A;
+  --color-primary-foreground: #FFFFFF;
+  
+  --color-secondary: #F5F5F5;
+  --color-secondary-foreground: #242424;
+  
+  --color-accent: #EEF7EE;
+  --color-accent-foreground: #242424;
+  
+  --color-destructive: #D13438;
+  --color-destructive-foreground: #FFFFFF;
+  
+  /* Fluent UI 2.0 Neutral Colors */
+  --color-background: #FAFAFA;
+  --color-card: #FFFFFF;
+  --color-surface: #F5F5F5;
+  --color-text: #111827;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-strong: rgba(0, 0, 0, 0.12);
+  --color-divider: rgba(0, 0, 0, 0.06);
+  --color-focus: #4CAC48;
+  
+  /* Chart Colors */
+  --color-chart-1: #4CAC48;
+  --color-chart-2: #7BCF73;
+  --color-chart-3: #A7E19D;
+  --color-chart-4: #3A7A36;
+  --color-chart-5: #2D5A29;
+  
+  /* Status Colors - Fluent UI 2.0 Style */
+  --color-status-accepted-bg: #EEF7EE;
+  --color-status-accepted-text: #2D5A29;
+  --color-status-pending-bg: #F5F5F5;
+  --color-status-pending-text: #616161;
+  --color-status-denied-bg: #FEF0F1;
+  --color-status-denied-text: #D13438;
+  --color-status-progress-bg: #E6F4FF;
+  --color-status-progress-text: #0078D4;
+  --color-status-submitted-bg: #EEF7EE;
+  --color-status-submitted-text: #2D5A29;
+  
+  /* Spacing - 4px grid system */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  
+  /* Border Radius - Fluent UI 2.0 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 999px;
+  
+  /* Shadows - Fluent UI 2.0 Depth */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.07), 0 0 2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.09), 0 0 4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.12), 0 0 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Typography System - Refined Enterprise Scale */
+body {
+  font-family: 'Segoe UI Variable', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', Roboto, 'Helvetica Neue', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* H1 - Main Page Titles (24-28px, semibold) */
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+
+/* H2 - Major Section Headers (20-22px, medium) */
+h2 {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+
+/* H3 - Card Titles, Subsection Headers (18px, medium) */
+h3 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+/* H4 - Small Headers (16px, medium) */
+h4 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+/* Paragraph - Body Medium (14-15px, regular) */
+p {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+/* Typography Utility Classes */
+
+/* Body Large - Important content values (16px, regular) */
+.text-body-large {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+/* Body Medium - Supporting text (14-15px, regular) */
+.text-body-medium {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+/* Body Small - Secondary text (14px, regular) */
+.text-body-small {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+/* Caption - Field labels, hint text (12-13px, regular) */
+.text-caption {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+/* Caption Small - Micro labels (12px, regular) */
+.text-caption-small {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+/* Label - Field labels (13px, regular, lighter) */
+.text-label {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+/* Value - Data values (15-16px, medium, darker) */
+.text-value {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+/* Value Large - Prominent values (16px, medium) */
+.text-value-large {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+/* Small text utilities */
+.text-small {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.text-xs {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+/* Emphasis utilities - use sparingly */
+.text-emphasis {
+  font-weight: 600;
+}
+
+.text-medium {
+  font-weight: 500;
+}
+
+/* Focus visible styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reset for consistent styling */
+* {
+  box-sizing: border-box;
+}
+
+/* Scrollbar styling for modern, natural mobile behavior */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  border: 2px solid transparent;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
