@@ -155,6 +155,80 @@ export class LpaSharePointService {
     }));
   }
 
+  public async getActionById(actionId: string): Promise<IActionItem | undefined> {
+    const numericId: number = Number(actionId);
+
+    // Try direct numeric lookup first (fastest)
+    if (!Number.isNaN(numericId) && numericId > 0) {
+      try {
+        const endpoint: string = `${this._webUrl}/_api/web/lists/getbytitle('${this._escapeListName(LPA_LISTS.Actions)}')/items(${numericId})`;
+        const item: Record<string, unknown> = await this._get<Record<string, unknown>>(endpoint);
+        if (item && item.Id) {
+          return this._mapToActionItem(item);
+        }
+      } catch {
+        // Fall through to title-based search
+      }
+    }
+
+    // Search by Title across list name aliases
+    const items: Record<string, unknown>[] = await this._getListItemsWithAliases(
+      LPA_LISTS.Actions,
+      ['Action', 'Action Items'],
+      5000
+    );
+
+    const found: Record<string, unknown> | undefined = items.find((item) => {
+      const title: string = this._pickString(item, ['Title', 'ActionId']);
+      return title === actionId || String(item.Id) === actionId;
+    });
+
+    return found ? this._mapToActionItem(found) : undefined;
+  }
+
+  private _mapToActionItem(item: Record<string, unknown>): IActionItem {
+    return {
+      Id: this._pickNumber(item, ['Id']),
+      Title: this._pickString(item, ['Title', 'ActionId']),
+      Status: this._pickString(item, ['Status']),
+      DueDate: this._pickString(item, ['DueDate']),
+      Priority: this._pickString(item, ['Priority']),
+      AuditReference: this._pickString(item, ['AuditReference', 'AuditId', 'AuditInstance']),
+      DepartmentName: this._pickString(item, ['DepartmentName', 'Department']),
+      AssignedToEmail: this._pickString(item, ['AssignedToEmail', 'AssignedTo']),
+      Description: this._pickString(item, ['Description', 'ActionDescription']),
+      Raw: item
+    };
+  }
+
+  public async getActionsForDepartment(departmentName: string): Promise<IActionItem[]> {
+    const items: Record<string, unknown>[] = await this._getListItemsWithAliases(
+      LPA_LISTS.Actions,
+      ['Action', 'Action Items'],
+      5000
+    );
+
+    const normalizedDept: string = departmentName.trim().toLowerCase();
+
+    const filtered: Record<string, unknown>[] = items.filter((item) => {
+      const dept: string = this._pickString(item, ['DepartmentName', 'Department', 'PlantDepartment']);
+      return dept.trim().toLowerCase() === normalizedDept;
+    });
+
+    return filtered.map((item) => ({
+      Id: this._pickNumber(item, ['Id']),
+      Title: this._pickString(item, ['Title', 'ActionId']),
+      Status: this._pickString(item, ['Status']),
+      DueDate: this._pickString(item, ['DueDate']),
+      Priority: this._pickString(item, ['Priority']),
+      AuditReference: this._pickString(item, ['AuditReference', 'AuditId', 'AuditInstance']),
+      DepartmentName: this._pickString(item, ['DepartmentName', 'Department']),
+      AssignedToEmail: this._pickString(item, ['AssignedToEmail', 'AssignedTo']),
+      Description: this._pickString(item, ['Description', 'ActionDescription']),
+      Raw: item
+    }));
+  }
+
   public async getAuditQuestionInstances(auditInstanceId: number): Promise<IAuditQuestionItem[]> {
     const items: Record<string, unknown>[] = await this.getListItems(LPA_LISTS.AuditQuestionsInstance, 5000);
 
@@ -318,6 +392,7 @@ export class LpaSharePointService {
   private async _getUserRoleMappingItems(listName: string): Promise<Record<string, unknown>[]> {
     const base: string = `${this._webUrl}/_api/web/lists/getbytitle('${this._escapeListName(listName)}')/items?$top=1000`;
     const endpoints: string[] = [
+      `${base}&$select=*,User/Id,User/EMail,User/Email,User/Name,User/Title,AssignedUser/Id,AssignedUser/EMail,AssignedUser/Email,AssignedUser/Name,AssignedUser/Title,PrimaryDepartment/Id,PrimaryDepartment/Title&$expand=User,AssignedUser,PrimaryDepartment`,
       `${base}&$select=*,User/Id,User/EMail,User/Email,User/Name,User/Title,AssignedUser/Id,AssignedUser/EMail,AssignedUser/Email,AssignedUser/Name,AssignedUser/Title&$expand=User,AssignedUser`,
       base
     ];
