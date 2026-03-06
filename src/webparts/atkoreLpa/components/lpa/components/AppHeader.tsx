@@ -13,7 +13,6 @@ interface AppHeaderProps {
   onBack?: () => void;
 }
 
-// AppHeader
 export function AppHeader({ title, onMenuClick, showMenu = false, actions, onExit, onBack }: AppHeaderProps) {
   return (
     <header className="sticky top-0 md:top-[48px] z-40 h-14 md:h-16 bg-[#4CAC48] md:bg-white border-b md:border-[rgba(0,0,0,0.12)] shadow-sm md:shadow-none text-white md:text-[#1B1B1B]">
