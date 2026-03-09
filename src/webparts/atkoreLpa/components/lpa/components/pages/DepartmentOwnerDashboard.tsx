@@ -16,20 +16,37 @@ interface DepartmentOwnerDashboardProps {
 }
 
 export function DepartmentOwnerDashboard({ onNavigate, onExit }: DepartmentOwnerDashboardProps) {
-  const { service } = useLpaAppContext();
+  const { service, roleMapping } = useLpaAppContext();
   const [liveActions, setLiveActions] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState('overview');
-  
+
   // Search and Filter State
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [filterAudit, setFilterAudit] = useState<string>('all');
   const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false);
 
+  // Resolve the department name from the UserRoleMapping entry
+  const departmentName: string = (() => {
+    if (!roleMapping) return '';
+    const rm = roleMapping as any;
+    return (
+      roleMapping.PrimaryDepartment?.Title ||
+      roleMapping.DepartmentName ||
+      roleMapping.Department ||
+      rm.DepartmentTitle ||
+      rm.PlantDepartment ||
+      ''
+    );
+  })();
+
   useEffect(() => {
     let mounted = true;
-    service
-      .getActionsForRole('department-owner')
+    const fetchActions = departmentName
+      ? service.getActionsForDepartment(departmentName)
+      : service.getActionsForRole('department-owner');
+
+    fetchActions
       .then((items) => {
         if (!mounted) {
           return;
@@ -42,7 +59,7 @@ export function DepartmentOwnerDashboard({ onNavigate, onExit }: DepartmentOwner
             auditorName: item.AssignedToEmail || 'Owner',
             dueDate: item.DueDate || new Date().toISOString().slice(0, 10),
             status: (item.Status || 'open').toLowerCase(),
-            department: item.DepartmentName || 'Department',
+            department: item.DepartmentName || departmentName || 'Department',
             priority: (item.Priority || 'medium').toLowerCase()
           }))
         );
@@ -56,7 +73,7 @@ export function DepartmentOwnerDashboard({ onNavigate, onExit }: DepartmentOwner
     return () => {
       mounted = false;
     };
-  }, [service]);
+  }, [service, departmentName]);
 
   const actionSource = liveActions;
   const overdueCount = actionSource.filter((action) => action.status === 'overdue').length;
@@ -126,8 +143,8 @@ export function DepartmentOwnerDashboard({ onNavigate, onExit }: DepartmentOwner
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
-      <AppHeader 
-        title="Department Dashboard"
+      <AppHeader
+        title={departmentName ? `Department Dashboard (${departmentName})` : 'Department Dashboard'}
         onExit={onExit}
       />
 

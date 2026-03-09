@@ -10,6 +10,8 @@ export interface IUserRoleMappingItem {
   AuditorType?: string;
   DepartmentAssignmentMode?: string;
   IsActive?: boolean;
+  DepartmentName?: string;
+  Department?: string;
   Plant?: {
     Id: number;
     Title: string;
